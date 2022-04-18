@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2022-04-10 14:38:12
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2022-04-17 17:57:28
+ * @LastEditTime: 2022-04-18 18:08:46
  */
 
 import { useCallback, useEffect, useState } from "react";
@@ -70,7 +70,6 @@ function HomePage(props) {
             render: (value) => (
               <ASWRapper
                 style={{ fontSize: "16px" }}
-                status={status}
                 encryptedInfo={value}
               />
             ),

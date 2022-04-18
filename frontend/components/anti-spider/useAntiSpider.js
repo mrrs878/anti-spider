@@ -2,15 +2,14 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2022-04-17 17:43:32
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2022-04-17 18:16:29
+ * @LastEditTime: 2022-04-18 19:26:43
  */
 
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import { AntiSpiderStatus } from "./enum";
+import { AntiSpider, AntiSpiderMessages, AntiSpiderStatus } from "./enum";
 import { useInsertFontStyle } from "./useInsertFontStyle";
 import { useCheckFont } from "./useCheckFont";
-
 
 /**
  * @typedef IUseAntiSpiderProps
@@ -26,7 +25,7 @@ import { useCheckFont } from "./useCheckFont";
  */
 const useAntiSpider = (props) => {
   const { status, token, font, encryptedInfo } = props;
-  const [checkFont] = useCheckFont();
+  const [checkFont] = useCheckFont({ status });
 
   /**
    * 这里是为了演示checkFont功能（多窗口下存在字体解析异常：cookie一样，但加载的字体不一样）
@@ -40,6 +39,7 @@ const useAntiSpider = (props) => {
 
   useEffect(() => {
     if (status !== AntiSpiderStatus.on) {
+      window.postMessage({ source: AntiSpider, type: AntiSpiderMessages.fontReady });
       return;
     }
     if (!Array.isArray(encryptedInfo)) {

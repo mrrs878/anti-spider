@@ -2,14 +2,14 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2022-04-14 17:52:29
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2022-04-17 17:39:54
+ * @LastEditTime: 2022-04-18 18:01:45
  */
 
 import { useEffect, useState } from "react";
-import { AntiSpiderMessages, AntiSpider, AntiSpiderStatus } from "./enum";
+import { AntiSpiderMessages, AntiSpider } from "./enum";
 
 const ASWRapper = (props) => {
-  const { encryptedInfo, style, status } = props;
+  const { encryptedInfo, style } = props;
 
   const [parseError, setParseError] = useState(true);
 
@@ -34,8 +34,7 @@ const ASWRapper = (props) => {
       className="m-font"
       style={style}
       dangerouslySetInnerHTML={{
-        __html:
-          status === AntiSpiderStatus.on && parseError ? "--" : encryptedInfo,
+        __html: parseError ? "--" : encryptedInfo,
       }}
     />
   );
