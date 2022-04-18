@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2022-04-10 14:38:12
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2022-04-18 20:20:43
+ * @LastEditTime: 2022-04-18 20:49:05
  */
 
 import { useCallback, useEffect, useState } from "react";
@@ -18,7 +18,7 @@ import "antd/dist/antd.css";
 
 function HomePage(props) {
   const { font, token, status } = props;
-  const [goods, setGoods] = useState([]);
+  const [goods, setGoods] = useState(props.goods);
 
   const getGoods = useCallback(() => {
     // Cookies.set("asc", token);
@@ -37,14 +37,10 @@ function HomePage(props) {
     font,
     encryptedInfo: Array.from(
       new Set(
-        goods.map((item) => item.price.replace(".", "").split(";")).flat()
+        goods?.map((item) => item.price.replace(".", "").split(";")).flat()
       )
     ).filter((item) => !!item),
   });
-
-  useEffect(() => {
-    getGoods();
-  }, []);
 
   return (
     <div className="container" style={{ padding: "10px" }}>
@@ -83,13 +79,21 @@ function HomePage(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const { font, token, status } = (await getAntiSpiderToken()) || {};
+  const { data: { goods = [] } } = await request(`http://localhost:3001/goods`, {
+    credentials: "include",
+    mode: "cors",
+    headers: {
+      cookie: `asc=${token}`,
+    },
+  });
   return {
     props: {
       font,
       token,
       status,
+      goods,
     },
   };
 }
