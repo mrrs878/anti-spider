@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2022-04-17 17:43:32
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2022-04-18 19:26:43
+ * @LastEditTime: 2022-04-18 20:21:17
  */
 
 import { useEffect } from "react";
@@ -29,13 +29,9 @@ const useAntiSpider = (props) => {
 
   /**
    * 这里是为了演示checkFont功能（多窗口下存在字体解析异常：cookie一样，但加载的字体不一样）
-   * 正常情况下，不需要这么做
+   * 正常情况下，需要在业务接口请求前更新cookie
    */
   Cookies.set("asc", token);
-
-  // useEffect(() => {
-  //   Cookies.set("asc", token);
-  // }, [token]);
 
   useEffect(() => {
     if (status !== AntiSpiderStatus.on) {

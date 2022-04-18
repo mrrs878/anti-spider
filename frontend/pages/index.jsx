@@ -2,15 +2,15 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2022-04-10 14:38:12
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2022-04-18 18:08:46
+ * @LastEditTime: 2022-04-18 20:20:43
  */
 
 import { useCallback, useEffect, useState } from "react";
 import { Table, Button } from "antd";
+import Cookies from "js-cookie";
 import { request } from "../utils";
 import {
   ASWRapper,
-  useCheckFont,
   getAntiSpiderToken,
   useAntiSpider,
 } from "../components/anti-spider";
@@ -21,6 +21,7 @@ function HomePage(props) {
   const [goods, setGoods] = useState([]);
 
   const getGoods = useCallback(() => {
+    // Cookies.set("asc", token);
     request(`http://localhost:3001/goods`, {
       credentials: "include",
       mode: "cors",
